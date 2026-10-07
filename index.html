@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pandora 88S · Buscador</title>
+  <meta name="description" content="Buscador de juegos de la Pandora 88S R15: encuentra el ID de cualquier juego escribiendo parte de su nombre en español o en inglés.">
+  <meta name="theme-color" content="#0b0221">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230b0221'/%3E%3Cpath fill='%23ff2a6d' d='M3 3h10v2H3zM3 5h2v8H3zM11 5h2v4h-2zM5 9h6v2H5z'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero" aria-labelledby="title">
+    <div class="sky" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="grid"></div>
+    </div>
+    <div class="hero-text">
+      <p class="kicker">&#9733; ARCADE DATABASE &#9733;</p>
+      <h1 id="title" class="logo" data-text="PANDORA 88S">PANDORA 88S</h1>
+      <p class="sub">BUSCADOR DE JUEGOS · GAMELIST R15</p>
+    </div>
+  </header>
+
+  <main class="console">
+    <form class="search" role="search" onsubmit="return false">
+      <label for="q" class="search-label">ESCRIBE PARTE DEL NOMBRE <span class="nowrap">(ES / EN)</span></label>
+      <div class="search-box">
+        <span class="prompt" aria-hidden="true">&gt;</span>
+        <input id="q" type="search" autocomplete="off" spellcheck="false"
+               placeholder="metal slug, rey de los, king of fighters…" aria-describedby="status">
+        <button type="button" id="clear" class="clear" aria-label="Borrar búsqueda" hidden>&times;</button>
+      </div>
+    </form>
+
+    <div class="toolbar">
+      <p id="status" class="status" role="status" aria-live="polite">CARGANDO CARTUCHOS…</p>
+      <div class="sort" role="group" aria-label="Ordenar">
+        <span class="sort-label">ORDEN</span>
+        <button type="button" class="chip is-on" data-sort="id" aria-pressed="true">ID</button>
+        <button type="button" class="chip" data-sort="es" aria-pressed="false">A–Z ES</button>
+        <button type="button" class="chip" data-sort="en" aria-pressed="false">A–Z EN</button>
+      </div>
+    </div>
+
+    <div class="board">
+      <div class="board-head" aria-hidden="true">
+        <span class="id">ID</span><span class="es">ESPAÑOL</span><span class="en">ENGLISH</span><span class="shot"></span>
+      </div>
+      <ol id="results" class="results" aria-label="Juegos"></ol>
+      <div id="sentinel" class="sentinel" aria-hidden="true"></div>
+      <div id="empty" class="empty" hidden>
+        <p class="game-over">GAME OVER</p>
+        <p>NINGÚN JUEGO COINCIDE CON TU BÚSQUEDA.</p>
+        <p class="blink">INSERT COIN PARA REINTENTAR</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <a class="download" href="pandora88s_juegos.csv" download>&#11015; DESCARGAR CSV</a>
+    <p class="hint">PULSA UN JUEGO PARA COPIAR SU ID · <kbd>/</kbd> PARA BUSCAR</p>
+    <p class="credits">PANTALLAS DE TÍTULO: <a href="https://github.com/libretro-thumbnails" target="_blank" rel="noopener">LIBRETRO-THUMBNAILS</a></p>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="games.js"></script>
+  <script src="images.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
