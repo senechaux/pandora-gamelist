@@ -399,6 +399,25 @@ body::after {
   color: var(--cyan);
   text-shadow: 0 0 6px rgba(5, 217, 232, 0.7);
 }
+.tag-count {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  text-shadow: 0 0 6px rgba(255, 211, 25, 0.6);
+}
+.tag-version {
+  border-color: var(--ink-dim);
+  color: var(--ink-dim);
+  text-shadow: none;
+}
+
+/* A version (clone, hack, revision) listed under its main game in search results */
+.row.is-version .id {
+  color: var(--ink-dim);
+  text-shadow: none;
+}
+.row.is-version .id::before {
+  content: "↳ ";
+}
 
 /* Title screen thumbnail (only the first games have one) */
 .shot img {

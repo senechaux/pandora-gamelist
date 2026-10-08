@@ -32,22 +32,41 @@
     return s;
   }
 
-  // window.GAMES rows are [id, nombre es, nombre en]
+  // window.GAMES rows are [id, nombre es, nombre en, id de la versión principal (0 = es la principal), popularidad]
   var games = (window.GAMES || []).map(function (g) {
-    return { id: g[0], es: g[1], en: g[2], kes: fold(g[1]), ken: fold(g[2]) };
+    return { id: g[0], es: g[1], en: g[2], kes: fold(g[1]), ken: fold(g[2]), parent: g[3] || 0, pop: g[4] || 0,
+             versions: 0 };
   });
   var byId = new Map(games.map(function (g) { return [g.id, g]; }));
+  // Every version points at its main game; main games count their versions.
+  games.forEach(function (g) {
+    g.main = (g.parent && byId.get(g.parent)) || g;
+    if (g.main !== g) g.main.versions++;
+  });
+  var mains = games.filter(function (g) { return g.main === g; });
   var images = window.GAME_IMAGES || { games: {} };
   var collators = {
     es: new Intl.Collator("es", { sensitivity: "base", numeric: true }),
     en: new Intl.Collator("en", { sensitivity: "base", numeric: true })
   };
-  var sorted = {
-    id: games.slice().sort(function (a, b) { return a.id - b.id; })
-    // "es" and "en" (A–Z by that column) are built on first use
+  var compare = {
+    // Most popular games first; each version right after its main game
+    popular: function (a, b) {
+      return (b.main.pop - a.main.pop) || (a.main.id - b.main.id) ||
+        ((a.main === a ? 0 : 1) - (b.main === b ? 0 : 1)) || (a.id - b.id);
+    },
+    id: function (a, b) { return a.id - b.id; },
+    es: function (a, b) { return collators.es.compare(a.es, b.es) || a.id - b.id; },
+    en: function (a, b) { return collators.en.compare(a.en, b.en) || a.id - b.id; }
   };
+  var sorted = {}; // built on first use: "popular:main", "id:all"…
 
-  var state = { q: "", sort: "id", list: [], shown: 0, compact: "", tokens: [], exactId: null };
+  function sortedList(mode, onlyMain) {
+    var key = mode + (onlyMain ? ":main" : ":all");
+    return sorted[key] || (sorted[key] = (onlyMain ? mains : games).slice().sort(compare[mode]));
+  }
+
+  var state = { q: "", sort: "popular", list: [], shown: 0, compact: "", tokens: [], exactId: null };
 
   // ---------- search ----------
   function search(raw) {
@@ -58,12 +77,17 @@
     state.tokens = tokens.length > 1 ? tokens : [];
     state.exactId = null;
 
-    var base = sorted[state.sort] || (sorted[state.sort] = buildAZ(state.sort));
+    // Without a search only the main version of each game is listed
+    var base = sortedList(state.sort, !compact);
     if (!compact) return base;
 
-    var out = base.filter(function (g) {
-      return matchTerms(g.kes) !== null || matchTerms(g.ken) !== null;
+    // A main game that matches brings all its versions (so "cadillacs" also lists its
+    // "DinosaurKombat…" hacks); a version that matches on its own is listed by itself.
+    var hits = new Set();
+    games.forEach(function (g) {
+      if (matchTerms(g.kes) !== null || matchTerms(g.ken) !== null) hits.add(g);
     });
+    var out = base.filter(function (g) { return hits.has(g) || hits.has(g.main); });
 
     // A purely numeric query also jumps straight to that ID.
     if (/^\d+$/.test(q)) {
@@ -85,13 +109,6 @@
       if (key.indexOf(state.tokens[i]) === -1) return null;
     }
     return state.tokens;
-  }
-
-  function buildAZ(lang) {
-    var collator = collators[lang];
-    return games.slice().sort(function (a, b) {
-      return collator.compare(a[lang], b[lang]) || a.id - b.id;
-    });
   }
 
   // ---------- highlight ----------
@@ -159,9 +176,17 @@
     for (var i = state.shown; i < end; i++) {
       var g = state.list[i];
       var tag = g.id === state.exactId ? ' <span class="tag">ID EXACTO</span>' : "";
+      if (g.main !== g) {
+        tag += ' <span class="tag tag-version" title="Versión de: ' + escapeHtml(g.main.es) +
+          '">VERSIÓN DE #' + g.main.id + "</span>";
+      } else if (g.versions) {
+        tag += ' <span class="tag tag-count" title="Busca su nombre para ver todas las versiones">+' +
+          fmt.format(g.versions) + (g.versions === 1 ? " VERSIÓN" : " VERSIONES") + "</span>";
+      }
       var hasShot = images.games[g.id] ? " has-shot" : "";
       html +=
-        '<li><button type="button" class="row' + hasShot + '" data-id="' + g.id + '">' +
+        '<li><button type="button" class="row' + hasShot + (g.main !== g ? " is-version" : "") +
+        '" data-id="' + g.id + '">' +
         '<span class="id">' + g.id + "</span>" +
         '<span class="name es" lang="es">' + highlight(g.es) + tag + "</span>" +
         '<span class="name en" lang="en">' + highlight(g.en) + "</span>" +
@@ -184,11 +209,12 @@
     $clear.hidden = !state.q;
 
     if (!state.q.trim()) {
-      $status.innerHTML = "<b>" + fmt.format(games.length) + "</b> JUEGOS EN MEMORIA";
-    } else if (n === 1) {
-      $status.innerHTML = "<b>1</b> COINCIDENCIA";
+      $status.innerHTML = "<b>" + fmt.format(mains.length) + "</b> JUEGOS · <b>" +
+        fmt.format(games.length) + "</b> CON SUS VERSIONES";
     } else {
-      $status.innerHTML = "<b>" + fmt.format(n) + "</b> COINCIDENCIAS";
+      var groups = new Set(state.list.map(function (g) { return g.main; })).size;
+      $status.innerHTML = "<b>" + fmt.format(n) + "</b> " + (n === 1 ? "COINCIDENCIA" : "COINCIDENCIAS") +
+        (n ? " · <b>" + fmt.format(groups) + "</b> " + (groups === 1 ? "JUEGO" : "JUEGOS") : "");
     }
   }
 
@@ -197,7 +223,7 @@
     var url = new URL(location.href);
     if (state.q.trim()) url.searchParams.set("q", state.q.trim());
     else url.searchParams.delete("q");
-    if (state.sort !== "id") url.searchParams.set("orden", state.sort);
+    if (state.sort !== "popular") url.searchParams.set("orden", state.sort);
     else url.searchParams.delete("orden");
     history.replaceState(null, "", url);
   }
@@ -327,7 +353,7 @@
   var params = new URLSearchParams(location.search);
   state.q = params.get("q") || "";
   var orden = params.get("orden") === "az" ? "es" : params.get("orden");
-  if (orden === "es" || orden === "en") {
+  if (orden && compare[orden]) {
     state.sort = orden;
     $sortBtns.forEach(function (b) {
       var on = b.dataset.sort === orden;

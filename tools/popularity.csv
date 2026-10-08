@@ -1,0 +1,261 @@
+# Popularidad de juegos conocidos (1-999), usada por tools/build_catalog.py.
+# - patron: expresión regular que se busca en la "clave" del juego (columna clave de tools/catalog_report.csv:
+#   nombre en inglés en minúsculas, sin espacios, signos, revisiones ni región). Gana la PRIMERA línea que encaje,
+#   así que los patrones concretos van antes que los generales. ^ = empieza por, $ = termina ahí.
+# - agrupar: "si" junta en un solo juego todo lo que encaje (hacks con otro nombre, p. ej. DinosaurKombat = Cadillacs).
+# - principal: (opcional, con agrupar) clave cuyo nombre se usará como versión principal del grupo.
+# - Los juegos que no aparecen aquí reciben una popularidad estimada entre 1 y 599.
+# Valores orientativos: 950+ imprescindibles · 850+ muy populares · 700+ conocidos · 600+ de culto.
+patron,popularidad,agrupar,juego,principal
+^supermario(hidden|life|inv|addlifeafterdeath|p1)?$,999,si,Super Mario Bros.
+^tetris$,990,,Tetris
+^thekingoffighters98$,990,,The King of Fighters '98
+^streetfighterii$,990,,Street Fighter II
+^thekingoffighters97$,985,,The King of Fighters '97
+^supermarioworld$,985,,Super Mario World
+^tekken3,980,,Tekken 3
+^supermario3$,975,,Super Mario Bros. 3
+^metalslug3$,975,,Metal Slug 3
+^supermario64,975,,Super Mario 64
+^pacman$,965,,Pac-Man
+^thekingoffighters2002$,965,,The King of Fighters 2002
+^(cadillacsdinosaurs|dinosaurs?(kombat|fighting)),960,si,Cadillacs & Dinosaurs (y sus hacks)
+^metalslug$,960,,Metal Slug
+^(mariokartkart64|mariokart64),960,,Mario Kart 64
+^supermariokart,955,,Super Mario Kart
+^contra$,950,,Contra
+^mortalkombat2$,950,,Mortal Kombat II
+^metalslugx$,950,,Metal Slug X
+^(sonicthehedgehog|sonic|sonic1)$,945,,Sonic the Hedgehog
+^superstreetfighterii,940,,Super Street Fighter II
+^donkeykongcountry$,940,,Donkey Kong Country
+^mortalkombat3$,940,,Mortal Kombat 3
+^(sonicthehedgehog2|sonic2)$,935,,Sonic the Hedgehog 2
+^(thelegendofzelda|legendofzelda|zelda),935,,The Legend of Zelda
+^goldeneye,930,,GoldenEye 007
+^galaga$,930,,Galaga
+^marvelvscapcom2,930,,Marvel vs. Capcom 2
+^streetfighteriii3rdstrike,930,,Street Fighter III: 3rd Strike
+^chronotrigger,930,,Chrono Trigger
+^donkeykong$,925,,Donkey Kong
+^spaceinvaders$,925,,Space Invaders
+^finalfight$,920,,Final Fight
+^streetfighteralpha3,920,,Street Fighter Alpha 3
+^streetsofrage2,920,,Streets of Rage 2
+^(teenagemutantninjaturtles|tmnt)$,920,,Teenage Mutant Ninja Turtles
+^mortalkombat$,920,,Mortal Kombat
+^doubledragon$,920,,Double Dragon
+^supermetroid,920,,Super Metroid
+^(thepunisher|punisher)$,880,si,The Punisher
+^(sangokushiii|warriorsoffate|tenchiwokurauii),905,si,Warriors of Fate (Sangokushi II),warriorsoffate
+^knightsofvalour(?!2(?!0)),900,si,Knights of Valour (Sangoku Senki)
+^knightsoftheroundtable,900,si,Knights of the Round
+^captaincommando,900,,Captain Commando
+^thekingoffighters2000$,900,,The King of Fighters 2000
+^supercontra,900,,Super Contra
+^(1942)$,900,,1942
+^metalslug5$,895,,Metal Slug 5
+^bubblebobble$,900,,Bubble Bobble
+^tekken2,910,,Tekken 2
+^supermario2$,900,,Super Mario Bros. 2
+^megaman2$,900,,Mega Man 2
+^mspacman$,900,,Ms. Pac-Man
+^supermarioallstars,900,,Super Mario All-Stars
+^streetfighteralpha2,900,,Street Fighter Alpha 2
+^samuraishodown2$,900,,Samurai Shodown II
+^(crashbandicoot|crashteamracing)$,900,,Crash Bandicoot / Crash Team Racing
+^metalslug2$,900,,Metal Slug 2
+^(sonic3|sonicthehedgehog3)$,895,,Sonic 3
+^thekingoffighters99$,890,,The King of Fighters '99
+^(orientallegend|xiyoushieyuan),890,si,Oriental Legend
+^dungeonsdragons(shadowovermystara|towerofdoom),885,,Dungeons & Dragons (Capcom)
+^tekken5,885,,Tekken 5 / Dark Resurrection
+^(thesimpsons|simpsons)$,880,si,The Simpsons (arcade)
+^knightsofvalour2(?!0),880,si,Knights of Valour 2
+^sunsetriders,880,,Sunset Riders
+^(bomberman)$,880,,Bomberman
+^marvelvscapcom$,880,,Marvel vs. Capcom
+^alienvspredator,880,,Alien vs. Predator
+^garou,880,,Garou: Mark of the Wolves
+^goldenaxe$,880,,Golden Axe
+^snowbros$,880,,Snow Bros.
+^(puzzlebobble|bustamove)$,880,,Puzzle Bobble / Bust-a-Move
+^(megaman|megaman1|rockman)$,880,,Mega Man
+^castlevania$,880,,Castlevania
+^1943$,880,,1943
+^raiden$,880,,Raiden
+^mariobros$,880,,Mario Bros.
+^(megamanx|rockmanx|rockmanx1|megamanx1generation)$,880,,Mega Man X
+^doubledragon2,880,,Double Dragon II
+^metalslug4$,880,,Metal Slug 4
+^streetsofrage$,880,,Streets of Rage
+^metalgearsolid,880,,Metal Gear Solid
+^(finalfantasyvii|finalfantasy7),880,,Final Fantasy VII
+^strikers1945,875,,Strikers 1945
+^tekken$,870,,Tekken
+^streetfighteralpha$,870,,Street Fighter Alpha
+^thekingoffighters96$,870,,The King of Fighters '96
+^samuraishodown$,870,,Samurai Shodown
+^(supermarioparty64|marioparty),860,,Mario Party
+^tekken6,870,,Tekken 6
+^ninjagaiden,865,,Ninja Gaiden
+^thekingoffighters95$,860,,The King of Fighters '95
+^thekingoffighters2001$,860,,The King of Fighters 2001
+^thelionking|^lionking,860,,The Lion King
+^aladdin,860,,Aladdin
+^mortalkombat4,860,,Mortal Kombat 4
+^xmen$,860,,X-Men
+^gradius$,860,,Gradius
+^rtype$,860,,R-Type
+^outrun,860,,Out Run
+^(ghostsngoblins|ghoulsnghosts),860,,Ghosts 'n Goblins
+^nbajam,860,,NBA Jam
+^(punchout|superpunchout),860,,Punch-Out!!
+^streetfighteriii,860,,Street Fighter III
+^supermariorpg,860,,Super Mario RPG
+^residentevil,860,,Resident Evil
+^teenagemutantninjaturtles(2|3|ii|iii),860,,TMNT II / III
+^(lylatwars|starfox),860,,Star Fox / Lylat Wars
+^banjo,860,,Banjo-Kazooie
+^thekingoffighters2003$,850,,The King of Fighters 2003
+^marvelsuperheroesvsstreetfighter,850,,Marvel Super Heroes vs. Street Fighter
+^thelastblade2,850,,The Last Blade 2
+^(mortalkombatadvance|ultimatemortalkombat),850,,Ultimate Mortal Kombat 3
+^metroid,850,,Metroid
+^adventureisland$,850,,Adventure Island
+^pokemon(red|blue|yellow|gold|silver|crystal|ruby|sapphire|emerald|firered|leafgreen),850,,Pokémon
+^ducktales,840,,DuckTales
+^(chipndale|chipanddale),840,,Chip 'n Dale Rescue Rangers
+^kirby,840,,Kirby
+^fatalfuryspecial,840,,Fatal Fury Special
+^thekingoffighters94$,840,,The King of Fighters '94
+^1944,840,,1944: The Loop Master
+^raiden(ii|2|dx),840,,Raiden II / DX
+^drmario,840,,Dr. Mario
+^spyro,840,,Spyro
+^castlevania(symphony|draculax|rondo|bloodlines|ii|iii|2|3),840,,Castlevania (secuelas)
+^battletoads,840,,Battletoads
+^silenthill,840,,Silent Hill
+^earthbound,840,,EarthBound
+^megaman(3|4|5|6),830,,Mega Man 3-6
+^thelastblade$,830,,The Last Blade
+^(dragonballz|dragonballgt),820,,Dragon Ball Z / GT
+^samuraishodown(3|4|5),820,,Samurai Shodown III-V
+^(xmenvsstreetfighter|xmenchildrenoftheatom),820,,X-Men (Capcom)
+^marvelsuperheroes,820,,Marvel Super Heroes
+^ninjabaseballbatman,820,,Ninja Baseball Bat Man
+^thekingofdragons,820,,The King of Dragons
+^kungfumaster|^kungfu$,820,,Kung-Fu Master
+^bioniccommando,820,,Bionic Commando
+^commando$,820,,Commando
+^strider,820,,Strider
+^1943kai,820,,1943 Kai
+^dodonpachi,820,,DoDonPachi
+^(aerofighters|sonicwings),820,,Aero Fighters
+^(fzero|fzerox),820,,F-Zero
+^operationwolf,820,,Operation Wolf
+^xevious,820,,Xevious
+^digdug,820,,Dig Dug
+^frogger,820,,Frogger
+^arkanoid,820,,Arkanoid
+^doubledragon3,820,,Double Dragon III
+^fatalfury,800,,Fatal Fury
+^columns,800,,Columns
+^puyopuyo|^puyopop|^minnadepuyopuyo,800,,Puyo Puyo
+^shinobi,800,,Shinobi
+^alteredbeast,800,,Altered Beast
+^excitebike,800,,Excitebike
+^bloodyroar,800,,Bloody Roar
+^(vampire|darkstalkers|nightwarriors),800,,Darkstalkers
+^jojosbizarreadventure,800,,JoJo's Bizarre Adventure
+^afterburner,800,,After Burner
+^spaceharrier,800,,Space Harrier
+^1941,800,,1941: Counter Attack
+^shocktroopers,800,,Shock Troopers
+^thekingoffighters10thanniversary,800,,The King of Fighters 10th Anniversary
+^metalslug6,800,,Metal Slug 6
+^earthwormjim,800,,Earthworm Jim
+^rayman,800,,Rayman
+^princeofpersia,800,,Prince of Persia
+^tonyhawk,800,,Tony Hawk's Pro Skater
+^fifa,800,,FIFA
+^(internationalsuperstarsoccer|winningeleven|jleaguewinningeleven),800,,ISS / Winning Eleven
+^metalgear,800,,Metal Gear
+^finalfantasy,800,,Final Fantasy
+^dragonquest,800,,Dragon Quest
+^supermario(land|collection),800,,Super Mario Land / Collection
+^supermario,780,,Super Mario (otros)
+^(mariotennis|supermariotennis),800,,Mario Tennis
+^tetris,780,,Tetris (otras versiones)
+^worldheroes,780,,World Heroes
+^artoffighting,780,,Art of Fighting
+^streetfighter$,780,,Street Fighter
+^streetfighterex,770,,Street Fighter EX
+^galaga,780,,Galaga (otras)
+^galaxian,780,,Galaxian
+^twinbee|^detanatwinbee,780,,TwinBee
+^cabal,780,,Cabal
+^mercs,780,,Mercs
+^pang|^superpang,780,,Pang
+^bombjack,780,,Bomb Jack
+^wonderboy,780,,Wonder Boy
+^gauntlet,780,,Gauntlet
+^lemmings,780,,Lemmings
+^adventureisland,780,,Adventure Island (secuelas)
+^hangon,780,,Hang-On
+^(cruisn|cruisnusa|cruisnworld),780,,Cruis'n
+^trackfield|^hypersports,780,,Track & Field
+^contra,780,,Contra (otras)
+^robocop,760,,RoboCop
+^spiderman,760,,Spider-Man
+^batman,760,,Batman
+^jurassicpark,760,,Jurassic Park
+^bomberman,760,,Bomberman (otros)
+^neobomberman,760,,Neo Bomberman
+^megaman|^rockman,760,,Mega Man (otros)
+^castlevania|^akumajoudracula,760,,Castlevania (otros)
+^sonic,760,,Sonic (otros)
+^mortalkombat,760,,Mortal Kombat (otros)
+^tekken,760,,Tekken (otros)
+^pacman|^mspacman,760,,Pac-Man (otros)
+^tumblepop,760,,Tumble Pop
+^windjammers,760,,Windjammers
+^narutoultimateninja|^naruto,760,,Naruto
+^tigerheli,760,,Tiger-Heli
+^gunsmoke,760,,Gun.Smoke
+^paperboy,760,,Paperboy
+^rampage,760,,Rampage
+^qbert,760,,Q*bert
+^burgertime,760,,BurgerTime
+^dragonball,760,,Dragon Ball
+^captaintsubasa,760,,Captain Tsubasa
+^tecmobowl,760,,Tecmo Bowl
+^gunbird,760,,Gunbird
+^blazingstar,760,,Blazing Star
+^donpachi,760,,DonPachi
+^supersidekicks,740,,Super Sidekicks
+^parodius,740,,Parodius
+^harrypotter,740,,Harry Potter
+^powerinstinct,720,,Power Instinct
+^kingofthemonsters,720,,King of the Monsters
+^thekingoffighters,720,,The King of Fighters (otros)
+^kingoffightersex,700,,King of Fighters EX
+^yugioh,700,,Yu-Gi-Oh!
+^digimon,680,,Digimon
+^magicaldrop,700,,Magical Drop
+^pulstar,700,,Pulstar
+^truxton,700,,Truxton
+^batsugun,700,,Batsugun
+^esprade,700,,ESP Ra.De.
+^lastresort,680,,Last Resort
+^ninjamasters,680,,Ninja Master's
+^mappy,700,,Mappy
+^rallyx,700,,Rally-X
+^chikichikiboys,700,,Chiki Chiki Boys
+^willow,700,,Willow
+^blacktiger,700,,Black Tiger
+^bloodbros,700,,Blood Bros.
+^kizunaencounter,650,,Kizuna Encounter
+^3countbout,650,,3 Count Bout
+^sengoku,650,,Sengoku
+^ragnagard,620,,Ragnagard
